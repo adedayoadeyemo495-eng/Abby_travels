@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Abby's Travel – Your Travel Partner</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --orange: #F47820;
+  --orange-light: #FF9A4D;
+  --navy: #1B2A6B;
+  --navy-dark: #0F1A4A;
+  --sky: #3AAFDA;
+  --cream: #FFF8F2;
+  --white: #FFFFFF;
+  --dark: #111827;
+  --gray: #6B7280;
+  --light-gray: #F3F4F6;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { font-family:'Outfit', sans-serif; background:var(--white); color:var(--dark); overflow-x:hidden; }
+
+/* NAV */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:999;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 5%;
+  background:rgba(255,255,255,0.97);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 20px rgba(0,0,0,0.08);
+}
+.logo {
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none;
+}
+.logo-icon {
+  width:42px; height:42px; background:var(--orange);
+  border-radius:10px; display:flex; align-items:center;
+  justify-content:center; font-size:1.3rem;
+}
+.logo-text { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:700; color:var(--navy); }
+.logo-text span { color:var(--orange); }
+
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a {
+  text-decoration:none; color:var(--navy);
+  font-weight:500; font-size:.9rem;
+  transition:color .2s;
+}
+.nav-links a:hover { color:var(--orange); }
+
+.nav-btn {
+  background:var(--orange); color:#fff;
+  padding:10px 24px; border-radius:50px;
+  text-decoration:none; font-weight:600; font-size:.88rem;
+  transition:all .2s;
+  box-shadow:0 4px 15px rgba(244,120,32,.3);
+}
+.nav-btn:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(244,120,32,.4); }
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  background: linear-gradient(135deg, #0F1A4A 0%, #1B2A6B 50%, #1a3a7a 100%);
+  display:flex; align-items:center;
+  padding:100px 5% 60px;
+  position:relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute;
+  top:-200px; right:-200px;
+  width:700px; height:700px; border-radius:50%;
+  background:radial-gradient(circle, rgba(244,120,32,.15), transparent 70%);
+}
+.hero::after {
+  content:''; position:absolute;
+  bottom:-300px; left:-200px;
+  width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle, rgba(58,175,218,.1), transparent 70%);
+}
+.hero-content {
+  position:relative; z-index:2;
+  max-width:620px;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(244,120,32,.2); border:1px solid rgba(244,120,32,.4);
+  color:var(--orange-light); padding:7px 18px; border-radius:50px;
+  font-size:.82rem; font-weight:600; letter-spacing:1px;
+  text-transform:uppercase; margin-bottom:24px;
+}
+.hero h1 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3rem,6vw,5rem);
+  font-weight:700; color:#fff; line-height:1.1;
+  margin-bottom:20px;
+}
+.hero h1 em { color:var(--orange); font-style:italic; }
+.hero p {
+  color:rgba(255,255,255,.75); font-size:1.05rem;
+  line-height:1.75; margin-bottom:36px; max-width:500px;
+}
+.hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--orange); color:#fff;
+  padding:14px 30px; border-radius:50px;
+  text-decoration:none; font-weight:600; font-size:.95rem;
+  box-shadow:0 6px 25px rgba(244,120,32,.4);
+  transition:all .3s;
+}
+.btn-primary:hover { transform:translateY(-3px); box-shadow:0 12px 35px rgba(244,120,32,.5); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:#fff;
+  padding:14px 30px; border-radius:50px;
+  text-decoration:none; font-weight:600; font-size:.95rem;
+  border:2px solid rgba(255,255,255,.4);
+  transition:all .3s;
+}
+.btn-outline:hover { background:rgba(255,255,255,.1); border-color:#fff; }
+
+.hero-stats {
+  display:flex; gap:40px; margin-top:50px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+.stat-num {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.2rem; font-weight:700; color:var(--orange);
+}
+.stat-label { color:rgba(255,255,255,.55); font-size:.82rem; margin-top:2px; }
+
+.hero-image-grid {
+  position:absolute; right:5%; top:50%;
+  transform:translateY(-50%);
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:12px; width:420px;
+  z-index:2;
+}
+.hero-img {
+  border-radius:16px; overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+.hero-img img { width:100%; height:180px; object-fit:cover; display:block; }
+.hero-img:first-child { margin-top:30px; }
+.hero-img:last-child { margin-top:-30px; }
+
+/* SECTION BASE */
+section { padding:90px 5%; }
+.section-tag {
+  display:inline-block; background:rgba(244,120,32,.1);
+  color:var(--orange); padding:5px 14px; border-radius:50px;
+  font-size:.78rem; font-weight:700; letter-spacing:1.5px;
+  text-transform:uppercase; margin-bottom:14px;
+}
+.section-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem); font-weight:700;
+  color:var(--navy); line-height:1.2; margin-bottom:12px;
+}
+.section-title em { color:var(--orange); font-style:italic; }
+.section-sub { color:var(--gray); font-size:1rem; line-height:1.75; max-width:540px; }
+.center { text-align:center; }
+.center .section-sub { margin:0 auto; }
+
+/* SERVICES */
+.services { background:var(--cream); }
+.services-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:24px; margin-top:56px;
+}
+.service-card {
+  background:#fff; border-radius:20px; padding:30px 24px;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);
+  border:1px solid rgba(244,120,32,.08);
+  transition:all .3s; position:relative; overflow:hidden;
+}
+.service-card::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--orange),var(--sky));
+  transform:scaleX(0); transition:transform .3s;
+}
+.service-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,.1); }
+.service-card:hover::after { transform:scaleX(1); }
+.svc-icon {
+  width:52px; height:52px; border-radius:14px;
+  background:linear-gradient(135deg,var(--orange),var(--orange-light));
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; margin-bottom:16px;
+}
+.service-card h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.25rem; font-weight:700; color:var(--navy); margin-bottom:8px;
+}
+.service-card p { color:var(--gray); font-size:.88rem; line-height:1.65; }
+
+/* DESTINATIONS */
+.dest-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:20px; margin-top:48px;
+}
+.dest-card {
+  border-radius:20px; overflow:hidden;
+  position:relative; cursor:pointer;
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  height:380px;
+}
+.dest-card img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .5s ease; display:block;
+}
+.dest-card:hover img { transform:scale(1.08); }
+.dest-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(15,26,74,.95) 0%, rgba(15,26,74,.2) 60%, transparent 100%);
+  padding:28px 24px;
+  display:flex; flex-direction:column; justify-content:flex-end;
+}
+.dest-tag {
+  display:inline-block; background:var(--orange);
+  color:#fff; padding:4px 12px; border-radius:50px;
+  font-size:.72rem; font-weight:600; margin-bottom:10px;
+  width:fit-content;
+}
+.dest-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.8rem; font-weight:700; color:#fff;
+}
+.dest-desc {
+  color:rgba(255,255,255,.75); font-size:.85rem;
+  line-height:1.55; margin-top:6px;
+  max-height:0; overflow:hidden;
+  transition:max-height .3s ease;
+}
+.dest-card:hover .dest-desc { max-height:80px; }
+
+/* WHY US */
+.why { background:var(--navy); }
+.why .section-title { color:#fff; }
+.why .section-tag { background:rgba(244,120,32,.2); }
+.why-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:64px; align-items:center; margin-top:56px;
+}
+.why-img-stack { position:relative; height:480px; }
+.why-img-main {
+  position:absolute; top:0; left:0;
+  width:75%; height:360px; border-radius:20px; overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+.why-img-main img { width:100%; height:100%; object-fit:cover; display:block; }
+.why-img-accent {
+  position:absolute; bottom:0; right:0;
+  width:60%; height:240px; border-radius:20px; overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+  border:4px solid var(--navy);
+}
+.why-img-accent img { width:100%; height:100%; object-fit:cover; display:block; }
+.why-points { display:flex; flex-direction:column; gap:20px; }
+.why-point {
+  display:flex; gap:16px; align-items:flex-start;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:16px; padding:20px;
+  transition:background .3s;
+}
+.why-point:hover { background:rgba(244,120,32,.15); }
+.why-icon {
+  width:44px; height:44px; border-radius:12px; flex-shrink:0;
+  background:var(--orange); display:flex; align-items:center;
+  justify-content:center; font-size:1.2rem;
+}
+.why-point h4 { font-weight:600; color:#fff; margin-bottom:4px; }
+.why-point p { color:rgba(255,255,255,.6); font-size:.87rem; line-height:1.6; }
+
+/* VISA */
+.visa { background:var(--light-gray); }
+.visa-grid {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:64px; align-items:center;
+}
+.visa-img { border-radius:24px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.12); }
+.visa-img img { width:100%; display:block; object-fit:cover; height:480px; }
+.visa-steps { margin-top:28px; display:flex; flex-direction:column; gap:18px; }
+.step { display:flex; gap:14px; align-items:flex-start; }
+.step-num {
+  width:36px; height:36px; border-radius:50%; flex-shrink:0;
+  background:var(--orange); color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.88rem;
+}
+.step h4 { font-weight:600; color:var(--navy); margin-bottom:3px; }
+.step p { color:var(--gray); font-size:.87rem; }
+
+/* GALLERY */
+.gallery-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:200px 200px;
+  gap:14px; margin-top:48px;
+}
+.g-item { border-radius:16px; overflow:hidden; position:relative; }
+.g-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+.g-item:hover img { transform:scale(1.06); }
+.g-item.tall { grid-row:span 2; }
+
+/* CONTACT */
+.contact {
+  background:linear-gradient(135deg,var(--navy-dark),var(--navy));
+  color:#fff;
+}
+.contact .section-title { color:#fff; }
+.contact .section-sub { color:rgba(255,255,255,.65); margin:0 auto 48px; }
+.contact-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:20px; margin-bottom:48px;
+}
+.contact-card {
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px; padding:30px 24px;
+  text-align:center;
+  transition:all .3s;
+}
+.contact-card:hover { background:rgba(244,120,32,.18); transform:translateY(-4px); }
+.contact-card .icon { font-size:2rem; margin-bottom:14px; }
+.contact-card h3 { color:#fff; font-weight:600; margin-bottom:8px; font-size:1rem; }
+.contact-card a, .contact-card p {
+  color:rgba(255,255,255,.7); text-decoration:none; font-size:.9rem;
+  transition:color .2s;
+}
+.contact-card a:hover { color:var(--orange); }
+.socials { display:flex; gap:14px; justify-content:center; }
+.social {
+  width:48px; height:48px; border-radius:50%;
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; text-decoration:none; color:#fff;
+  transition:all .3s;
+}
+.social:hover { background:var(--orange); transform:scale(1.1); }
+
+/* WHATSAPP */
+.wa-float {
+  position:fixed; bottom:24px; right:24px; z-index:9999;
+  width:56px; height:56px; border-radius:50%;
+  background:#25D366; display:flex; align-items:center;
+  justify-content:center; font-size:1.6rem; color:#fff;
+  text-decoration:none;
+  box-shadow:0 6px 25px rgba(37,211,102,.5);
+  animation:wapulse 2s infinite;
+}
+.wa-float:hover { transform:scale(1.1); }
+@keyframes wapulse {
+  0%,100%{box-shadow:0 6px 25px rgba(37,211,102,.5)}
+  50%{box-shadow:0 6px 40px rgba(37,211,102,.8)}
+}
+
+/* FOOTER */
+footer {
+  background:#070e25; color:rgba(255,255,255,.45);
+  text-align:center; padding:22px 5%; font-size:.85rem;
+}
+footer span { color:var(--orange); }
+
+/* MOBILE */
+@media(max-width:768px){
+  .nav-links,.nav-btn{display:none}
+  .hero{padding:90px 5% 50px}
+  .hero-image-grid{display:none}
+  .dest-grid{grid-template-columns:1fr}
+  .dest-card{height:280px}
+  .why-grid{grid-template-columns:1fr}
+  .why-img-stack{height:260px}
+  .visa-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+  .g-item.tall{grid-row:span 1}
+  .hero-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="logo">
+    <div class="logo-icon">✈️</div>
+    <div class="logo-text">Abby's <span>Travel</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#destinations">Destinations</a></li>
+    <li><a href="#visa">Visa</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://wa.me/27785370900" class="nav-btn" target="_blank">Book Now ✈️</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <div class="hero-badge">✈️ Your Travel Partner</div>
+    <h1>Explore the World<br/>with <em>Abby's Travel</em></h1>
+    <p>We handle your visa, tours, car rental, flights and accommodation — so you can focus on making memories. Registered in South Africa. Trusted globally.</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/27785370900" class="btn-primary" target="_blank">📱 Book on WhatsApp</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+      <div>
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Destinations</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Visa Success</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-image-grid">
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&q=80" alt="South Africa"/>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1586861203927-800a5acdcc4d?w=400&q=80" alt="Zanzibar"/>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80" alt="Travel"/>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?w=400&q=80" alt="Qatar"/>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="center">
+    <div class="section-tag">What We Offer</div>
+    <h2 class="section-title">All-in-One <em>Travel Services</em></h2>
+    <p class="section-sub">From visa processing to full tour packages — everything you need for a perfect trip.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="svc-icon">🛂</div>
+      <h3>E-Visa Processing</h3>
+      <p>Fast and stress-free visa processing for South Africa, Qatar, Singapore and more. We handle all the paperwork.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🗺️</div>
+      <h3>Tour Packages</h3>
+      <p>Expertly curated itineraries to top destinations. Discover the wonders of Africa and beyond.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">✈️</div>
+      <h3>Flight Booking</h3>
+      <p>We search and book the best flight deals for you — domestic and international at competitive prices.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🏨</div>
+      <h3>Hotel & Airbnb</h3>
+      <p>From budget stays to luxury hotels, we find and book the perfect accommodation for your style.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🚗</div>
+      <h3>Car Rental</h3>
+      <p>Explore at your own pace with our reliable car rental service across South Africa and beyond.</p>
+    </div>
+    <div class="service-card">
+      <div class="svc-icon">🏠</div>
+      <h3>Apartment Rental</h3>
+      <p>Feel at home while traveling. We arrange comfortable short-term apartment rentals in key destinations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section id="destinations">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px;margin-bottom:48px;">
+    <div>
+      <div class="section-tag">Where We Go</div>
+      <h2 class="section-title">Popular <em>Destinations</em></h2>
+    </div>
+    <a href="https://wa.me/27785370900" class="btn-primary" target="_blank">Book a Trip</a>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=600&q=80" alt="South Africa"/>
+      <div class="dest-overlay">
+        <span class="dest-tag">E-Visa Available</span>
+        <div class="dest-name">South Africa</div>
+        <div class="dest-desc">Beaches, safaris, vibrant cities and iconic landmarks. Experience the Rainbow Nation.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1586861203927-800a5acdcc4d?w=600&q=80" alt="Zanzibar"/>
+      <div class="dest-overlay">
+        <span class="dest-tag">Island Luxury</span>
+        <div class="dest-name">Zanzibar</div>
+        <div class="dest-desc">Crystal-clear waters, white sandy beaches and unforgettable island luxury.</div>
+      </div>
+    </div>
+    <div class="dest-card">
+      <img src="https://images.unsplash.com/photo-1546412414-e1885259563a?w=600&q=80" alt="Qatar"/>
+      <div class="dest-overlay">
+        <span class="dest-tag">3-Month E-Visa</span>
+        <div class="dest-name">Qatar</div>
+        <div class="dest-desc">Qatar is calling — secure your eVisa and travel in style to this stunning destination.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="why">
+  <div class="why-grid">
+    <div class="why-img-stack">
+      <div class="why-img-main">
+        <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=600&q=80" alt="Safari"/>
+      </div>
+      <div class="why-img-accent">
+        <img src="https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=400&q=80" alt="Visa"/>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title" style="color:#fff;">3 Reasons to Travel<br/>with <em>Abby's</em></h2>
+      <div class="why-points">
+        <div class="why-point">
+          <div class="why-icon">💰</div>
+          <div>
+            <h4>Affordable Without Compromise</h4>
+            <p>We find you the best deals so you get an unforgettable experience without breaking the bank.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🌍</div>
+          <div>
+            <h4>Scenic Beauty Awaits</h4>
+            <p>Beaches, safaris, mountains and vibrant cities — we take you to the most breathtaking places on earth.</p>
+          </div>
+        </div>
+        <div class="why-point">
+          <div class="why-icon">🛂</div>
+          <div>
+            <h4>Easy & Fast Visa Process</h4>
+            <p>Our visa experts handle everything for you — fast approvals, zero stress, guaranteed support.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISA -->
+<section class="visa" id="visa">
+  <div class="visa-grid">
+    <div class="visa-img">
+      <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=600&q=80" alt="Visa Processing"/>
+    </div>
+    <div>
+      <div class="section-tag">Visa Services</div>
+      <h2 class="section-title">Stress-Free<br/><em>Visa Processing</em></h2>
+      <p class="section-sub">We process visas for South Africa, Qatar, Singapore and more. Just send us your documents and we handle the rest.</p>
+      <div class="visa-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Send Your Documents</h4>
+            <p>Passport data page & passport photograph — that's all we need to get started.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>We Process Everything</h4>
+            <p>Our team handles the full application process on your behalf with speed and precision.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Receive Your Visa</h4>
+            <p>Get your approved visa delivered to you — ready to travel!</p>
+          </div>
+        </div>
+      </div>
+      <a href="https://wa.me/27785370900" class="btn-primary" style="margin-top:28px;display:inline-flex;" target="_blank">Start Your Visa Now ✈️</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <div class="center">
+    <div class="section-tag">Our Gallery</div>
+    <h2 class="section-title">Adventures <em>Await You</em></h2>
+  </div>
+  <div class="gallery-grid">
+    <div class="g-item tall">
+      <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=400&q=80" alt="Safari"/>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Travel"/>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&q=80" alt="Beach"/>
+    </div>
+    <div class="g-item tall">
+      <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=400&q=80" alt="South Africa"/>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1586861203927-800a5acdcc4d?w=400&q=80" alt="Zanzibar"/>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&q=80" alt="Plane"/>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="center">
+    <div class="section-tag" style="background:rgba(244,120,32,.2);">Get In Touch</div>
+    <h2 class="section-title">Ready to Start Your <em>Journey?</em></h2>
+    <p class="section-sub">Contact us today and let's plan your perfect trip together. We respond fast!</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">📱</div>
+      <h3>WhatsApp / Call</h3>
+      <a href="https://wa.me/27785370900" target="_blank">+27 785 370 900</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📧</div>
+      <h3>Email Us</h3>
+      <a href="mailto:Visitsouthafricab@yahoo.com">Visitsouthafricab@yahoo.com</a>
+    </div>
+    <div class="contact-card">
+      <div class="icon">📍</div>
+      <h3>Based In</h3>
+      <p>South Africa 🇿🇦<br/>Serving clients worldwide</p>
+    </div>
+  </div>
+  <div class="socials">
+    <a href="https://www.instagram.com/visitsouthafricabyabby" class="social" target="_blank">📸</a>
+    <a href="https://wa.me/27785370900" class="social" target="_blank">💬</a>
+    <a href="mailto:Visitsouthafricab@yahoo.com" class="social" target="_blank">✉️</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span>Abby's Travel</span> · All Rights Reserved · Registered in South Africa · @visitsouthafricabyabby</p>
+</footer>
+
+<a href="https://wa.me/27785370900" class="wa-float" target="_blank" title="Chat on WhatsApp">💬</a>
+
+</body>
+</html>
